@@ -11,6 +11,7 @@ const ArticleBody = (props) => props.ast.map((node, index) => {
     }
 
     case astConstants.SC_NODE: {
+      // TODO: Actually render shortcodes
       return (
         <div key={index}>
           <br />
@@ -25,7 +26,11 @@ const ArticleBody = (props) => props.ast.map((node, index) => {
     }
 
     case astConstants.TEXT: {
-      return node.content
+      // TODO: Better solution
+      return <span
+        key={index}
+        dangerouslySetInnerHTML={{ __html: node.content }}
+      />
     }
   }
 })
