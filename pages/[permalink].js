@@ -2,7 +2,7 @@ import fetch from 'isomorphic-unfetch'
 
 const IndexPage = (props) => (<>
   <h1 dangerouslySetInnerHTML={{ __html: props.article.title }} />
-  <p>{props.article.body}</p>
+  <div dangerouslySetInnerHTML={{ __html: props.article.body }} />
 </>)
 
 IndexPage.getInitialProps = async ({ req, query }) => {
