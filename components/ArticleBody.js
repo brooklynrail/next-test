@@ -1,4 +1,5 @@
 import { Fragment, createElement } from 'react'
+import Imgix from 'react-imgix'
 import { astConstants } from '../lib/parsers/ast'
 
 const attrsToString = (attrs) => {
@@ -32,24 +33,34 @@ const ArticleBody = (props) => props.ast.map((node, index) => {
       return createElement(node.tag, {
         ...replaceAttrs(node.attrs),
         key: index
-      }, node.content.length ? <ArticleBody ast={node.content} /> : null)
+      }, node.content.length ? <ArticleBody ast={node.content} images={props.images} /> : null)
     }
 
     case astConstants.SC_NODE: {
       // TODO: Actually render shortcodes
-      return (
-        <div key={index}>
-          <br />
-          <strong>[{node.tag}] <em>{attrsToString(node.attrs)}</em></strong>
-          <br />
+      switch (node.tag) {
+        case 'img': {
+          const image = props.images.find((i) => i.name === node.attrs.name)
+          const url = `https://brooklynrail-web.imgix.net/article_image/image/${image.id}/${image.image}`
+          return <Imgix key={index} src={url} alt={image.caption} />
+        }
 
-          <ArticleBody ast={node.content} />
-
-          <br />
-          <strong>[/{node.tag}]</strong>
-          <br /><br />
-        </div>
-      )
+        default: {
+          return (
+            <div key={index}>
+              <br />
+              <strong>[{node.tag}] <em>{attrsToString(node.attrs)}</em></strong>
+              <br />
+    
+              <ArticleBody ast={node.content} images={props.images} />
+    
+              <br />
+              <strong>[/{node.tag}]</strong>
+              <br /><br />
+            </div>
+          )
+        }
+      }
     }
 
     case astConstants.TEXT: {

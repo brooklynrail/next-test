@@ -8,6 +8,7 @@
     "next": "^9.0.5",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-imgix": "^8.6.4",
     "serverless-mysql": "^1.5.1",
     "sql-template-strings": "^2.2.2"
   },
