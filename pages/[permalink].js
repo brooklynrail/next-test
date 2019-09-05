@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-unfetch'
 import parseArticleBody from '../lib/parseArticleBody'
+import getApiUrl from '../lib/getApiUrl'
 import ArticleBody from '../components/ArticleBody'
 
 const IndexPage = (props) => (<>
@@ -8,12 +9,7 @@ const IndexPage = (props) => (<>
 </>)
 
 IndexPage.getInitialProps = async ({ req, query }) => {
-  // TODO: Make protocol/host detection better
-  const protocol = req ? 'http:' : location.protocol
-  const host = req ? 'localhost:3000' : location.host
-  const pageRequest = `${protocol}//${host}/api/article?permalink=${query.permalink}`
-
-  const res = await fetch(pageRequest)
+  const res = await fetch(`${getApiUrl(req)}/article?permalink=${query.permalink}`)
   const json = await res.json()
   const article = json[0]
 

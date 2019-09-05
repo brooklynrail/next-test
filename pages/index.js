@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-unfetch'
+import getApiUrl from '../lib/getApiUrl'
 
 const IndexPage = (props) => (
   <ul>
@@ -14,12 +15,7 @@ const IndexPage = (props) => (
 )
 
 IndexPage.getInitialProps = async ({ req }) => {
-  // TODO: Make protocol/host detection better
-  const protocol = req ? 'http:' : location.protocol
-  const host = req ? 'localhost:3000' : location.host
-  const pageRequest = `${protocol}//${host}/api/articles`
-
-  const res = await fetch(pageRequest)
+  const res = await fetch(`${getApiUrl(req)}/articles`)
   const articles = await res.json()
 
   return { articles }
