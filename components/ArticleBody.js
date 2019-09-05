@@ -1,6 +1,14 @@
 import { createElement } from 'react'
 import { astConstants } from '../lib/parsers/ast'
 
+const attrsToString = (attrs) => {
+  let string = ''
+  for (let key in attrs) {
+    string += `${key}='${attrs[key].replace('\'', '\\\'')}' `
+  }
+  return string.trim()
+}
+
 const ArticleBody = (props) => props.ast.map((node, index) => {
   switch (node.type) {
     case astConstants.HTML_NODE: {
@@ -15,7 +23,7 @@ const ArticleBody = (props) => props.ast.map((node, index) => {
       return (
         <div key={index}>
           <br />
-          <strong>[{node.tag}]</strong>
+          <strong>[{node.tag}] <em>{attrsToString(node.attrs)}</em></strong>
           <br />
           <ArticleBody ast={node.content} />
           <br />
