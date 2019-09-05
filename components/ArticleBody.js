@@ -42,7 +42,7 @@ const ArticleBody = (props) => props.ast.map((node, index) => {
         case 'img': {
           const image = props.images.find((i) => i.name === node.attrs.name)
           const url = `https://brooklynrail-web.imgix.net/article_image/image/${image.id}/${image.image}`
-          return <Imgix key={index} src={url} alt={image.caption} />
+          return <Imgix key={index} src={url} alt={image.caption} sizes='800px' />
         }
 
         default: {
