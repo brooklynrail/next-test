@@ -11,15 +11,17 @@ const ArticleBody = (props) => props.ast.map((node, index) => {
     }
 
     case astConstants.SC_NODE: {
-      return (<>
-        <br />
-        <strong>[{node.tag}]</strong>
-        <br />
-        <ArticleBody ast={node.content} />
-        <br />
-        <strong>[/{node.tag}]</strong>
-        <br />
-      </>)
+      return (
+        <div key={index}>
+          <br />
+          <strong>[{node.tag}]</strong>
+          <br />
+          <ArticleBody ast={node.content} />
+          <br />
+          <strong>[/{node.tag}]</strong>
+          <br />
+        </div>
+      )
     }
 
     case astConstants.TEXT: {
