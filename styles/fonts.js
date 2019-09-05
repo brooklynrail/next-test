@@ -1,5 +1,8 @@
 import css from 'styled-jsx/css'
 
+// You'll need to use some extension to get over the CORS errors
+// I don't know how the fonts are licensed so I didn't want to include them in the repo
+
 export default css.global`
 @font-face {
   font-family: 'Untitled Sans';
