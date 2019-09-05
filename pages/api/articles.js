@@ -2,7 +2,7 @@ import sql from 'sql-template-strings'
 import { query } from '../../lib/db'
 
 export default async (req, res) => {
-  const limit = parseInt(req.query.limit) || 10
+  const limit = parseInt(req.query.limit) || 100
 
   const articles = await query(sql`
     SELECT * FROM articles
