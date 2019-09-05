@@ -14,6 +14,14 @@ const replaceAttrs = (attrs) => {
     attrs.className = attrs.class
     delete attrs.class
   }
+  if (attrs.frameborder) {
+    attrs.frameBorder = attrs.frameborder
+    delete attrs.frameborder
+  }
+  if (attrs.allowfullscreen) {
+    attrs.allowFullScreen = attrs.allowfullscreen
+    delete attrs.allowfullscreen
+  }
 
   return attrs
 }
