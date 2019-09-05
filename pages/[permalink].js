@@ -1,8 +1,10 @@
 import fetch from 'isomorphic-unfetch'
+import parseArticleBody from '../lib/parseArticleBody'
+import ArticleBody from '../components/ArticleBody'
 
 const IndexPage = (props) => (<>
   <h1 dangerouslySetInnerHTML={{ __html: props.article.title }} />
-  <div dangerouslySetInnerHTML={{ __html: props.article.body }} />
+  <ArticleBody ast={props.parsed} />
 </>)
 
 IndexPage.getInitialProps = async ({ req, query }) => {
@@ -15,7 +17,9 @@ IndexPage.getInitialProps = async ({ req, query }) => {
   const json = await res.json()
   const article = json[0]
 
-  return { article }
+  const parsed = parseArticleBody(article.body)
+
+  return { article, parsed }
 }
 
 export default IndexPage
