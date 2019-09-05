@@ -1,4 +1,4 @@
-import { createElement } from 'react'
+import { Fragment, createElement } from 'react'
 import { astConstants } from '../lib/parsers/ast'
 
 const attrsToString = (attrs) => {
@@ -9,11 +9,20 @@ const attrsToString = (attrs) => {
   return string.trim()
 }
 
+const replaceAttrs = (attrs) => {
+  if (attrs.class) {
+    attrs.className = attrs.class
+    delete attrs.class
+  }
+
+  return attrs
+}
+
 const ArticleBody = (props) => props.ast.map((node, index) => {
   switch (node.type) {
     case astConstants.HTML_NODE: {
       return createElement(node.tag, {
-        ...node.attrs,
+        ...replaceAttrs(node.attrs),
         key: index
       }, node.content.length ? <ArticleBody ast={node.content} /> : null)
     }
@@ -25,20 +34,26 @@ const ArticleBody = (props) => props.ast.map((node, index) => {
           <br />
           <strong>[{node.tag}] <em>{attrsToString(node.attrs)}</em></strong>
           <br />
+
           <ArticleBody ast={node.content} />
+
           <br />
           <strong>[/{node.tag}]</strong>
-          <br />
+          <br /><br />
         </div>
       )
     }
 
     case astConstants.TEXT: {
       // TODO: Better solution
-      return <span
-        key={index}
-        dangerouslySetInnerHTML={{ __html: node.content }}
-      />
+      return (<Fragment key={index}>
+        <span dangerouslySetInnerHTML={{ __html: node.content }} />
+        <style jsx>{`
+          span {
+            font-family: 'Untitled Serif', serif;
+          }
+        `}</style>
+      </Fragment>)
     }
   }
 })
