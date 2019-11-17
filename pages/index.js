@@ -7,10 +7,12 @@ const IndexPage = (props) => (<>
   <ul>
     {props.articles.map((article) => (
       <li key={article.id}>
-        <a
-          href={`/${article.permalink}`}
-          dangerouslySetInnerHTML={{ __html: article.title }}
-        />
+        <h2>
+          <a
+            href={`/${article.permalink}`}
+            dangerouslySetInnerHTML={{ __html: article.title }}
+          />
+        </h2>
         <ArticleExcerpt content={article.excerpt} />
       </li>
     ))}
