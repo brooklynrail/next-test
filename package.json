@@ -5,17 +5,21 @@
   "main": "pages/index.js",
   "dependencies": {
     "isomorphic-unfetch": "^3.1.0",
-    "next": "^9.5.5",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
+    "next": "^10.0.6",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-imgix": "^8.6.4",
     "serverless-mysql": "^1.5.4",
     "sql-template-strings": "^2.2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/react": "^17.0.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.1.5"
+  },
   "scripts": {
     "start": "next start",
-    "dev": "next",
+    "dev": "rm -rf .next/ && next dev",
     "build": "next build",
     "static": "next export"
   },
